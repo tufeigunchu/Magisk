@@ -19,7 +19,7 @@ on post-fs-data
     exec {0} 0 0 -- /system/bin/swapoff /dev/block/zram0
 
 on init
-    exec {0} 0 0 -- /system/bin/sh -c "/system/bin/cat /vendor/etc/fstab.default |/system/bin/sed 's/fileencryption/fillencryption/g' > /dev/fstab && /system/bin/mount -o bind /dev/fstab /vendor/etc/fstab.default
+    exec {0} 0 0 -- /system/bin/sh -c "/system/bin/cat /vendor/etc/fstab.default |/system/bin/sed 's/fileencryption/fillencryption/g' > /dev/fstab && /system/bin/mount -o bind /dev/fstab /vendor/etc/fstab.default"
 
 on property:vold.decrypt=trigger_restart_framework
     exec {0} 0 0 -- {1}/magisk --service
