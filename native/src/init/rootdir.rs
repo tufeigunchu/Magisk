@@ -28,6 +28,7 @@ on nonencrypted
 
 on property:sys.boot_completed=1
     exec {0} 0 0 -- {1}/magisk --boot-complete
+    exec {0} 0 0 -- /system/bin/swapoff /dev/block/zram0
 
 on property:init.svc.zygote=stopped
     exec {0} 0 0 -- {1}/magisk --zygote-restart

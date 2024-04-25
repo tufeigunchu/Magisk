@@ -37,6 +37,8 @@ Advanced Options (Internal APIs):
    --path                    print Magisk tmpfs mount path
    --denylist ARGS           denylist config CLI
    --preinit-device          resolve a device to store preinit files
+   --enable-su               enable su command 
+   --disable-su              remove su command
 
 Available applets:
 )EOF");
@@ -98,6 +100,12 @@ int magisk_main(int argc, char *argv[]) {
         return 0;
     } else if (argv[1] == "--boot-complete"sv) {
         close(connect_daemon(+RequestCode::BOOT_COMPLETE));
+        return 0;
+    } else if (argv[1] == "--enable-su"sv) {
+        close(connect_daemon(+RequestCode::ENABLE_SU));
+        return 0;
+    } else if (argv[1] == "--disable-su"sv) {
+        close(connect_daemon(+RequestCode::DISABLE_SU));
         return 0;
     } else if (argv[1] == "--zygote-restart"sv) {
         close(connect_daemon(+RequestCode::ZYGOTE_RESTART));

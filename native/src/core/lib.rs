@@ -42,6 +42,8 @@ pub mod ffi {
         POST_FS_DATA,
         LATE_START,
         BOOT_COMPLETE,
+        ENABLE_SU,
+        DISABLE_SU,
 
         END,
     }

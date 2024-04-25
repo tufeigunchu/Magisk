@@ -260,6 +260,12 @@ static void handle_request(pollfd *pfd) {
 
     // Check client permissions
     switch (code) {
+    case +RequestCode::ENABLE_SU:
+        xsymlink("/system/bin/xu", "/system/bin/su");
+        return;
+    case +RequestCode::DISABLE_SU:
+        unlink("/system/bin/su");
+        return;
     case +RequestCode::POST_FS_DATA:
     case +RequestCode::LATE_START:
     case +RequestCode::BOOT_COMPLETE:
