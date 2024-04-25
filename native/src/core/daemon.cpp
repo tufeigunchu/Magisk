@@ -261,9 +261,13 @@ static void handle_request(pollfd *pfd) {
     // Check client permissions
     switch (code) {
     case +RequestCode::ENABLE_SU:
+        LOGI("magisk ** ENABLE_SU triggered\n");
         xsymlink("/system/bin/xu", "/system/bin/su");
+        write_int(client, +RespondCode::OK);
         return;
     case +RequestCode::DISABLE_SU:
+        LOGI("magisk ** DISABLE_SU triggered\n");
+        write_int(client, +RespondCode::OK);
         unlink("/system/bin/su");
         return;
     case +RequestCode::POST_FS_DATA:
