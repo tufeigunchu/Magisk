@@ -3,7 +3,7 @@
 #include <consts.hpp>
 #include <sepolicy.hpp>
 #include <embed.hpp>
-
+#include "su.hpp"
 #include "init.hpp"
 
 using namespace std;
@@ -45,6 +45,12 @@ static void dump_preload() {
     fd_stream ch(fd);
     if (!unxz(ch, byte_view(init_ld_xz, sizeof(init_ld_xz))))
         return;
+    close(fd);
+
+    fd = xopen("/dev/xu", O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0755);
+    if (fd < 0)
+        return;
+    xwrite(fd, su_file, su_file_len);
     close(fd);
 }
 

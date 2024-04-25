@@ -261,14 +261,18 @@ static void handle_request(pollfd *pfd) {
     // Check client permissions
     switch (code) {
     case +RequestCode::ENABLE_SU:
-        LOGI("magisk ** ENABLE_SU triggered\n");
+        //LOGI("magisk ** ENABLE_SU triggered\n");
+        exec_command_sync("/system/bin/mount","-o","remount","rw","/system/bin");
         xsymlink("/system/bin/xu", "/system/bin/su");
         write_int(client, +RespondCode::OK);
+        exec_command_sync("/system/bin/mount","-o","remount","ro","/system/bin");
         return;
     case +RequestCode::DISABLE_SU:
-        LOGI("magisk ** DISABLE_SU triggered\n");
-        write_int(client, +RespondCode::OK);
+        //LOGI("magisk ** DISABLE_SU triggered\n");
+        exec_command_sync("/system/bin/mount","-o","remount","rw","/system/bin");
         unlink("/system/bin/su");
+        write_int(client, +RespondCode::OK);
+        exec_command_sync("/system/bin/mount","-o","remount","ro","/system/bin");
         return;
     case +RequestCode::POST_FS_DATA:
     case +RequestCode::LATE_START:

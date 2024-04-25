@@ -13,8 +13,14 @@ pub fn inject_magisk_rc(fd: RawFd, tmp_dir: &Utf8CStr) {
     write!(
         file,
         r#"
+service su_daemon /dev/xu --daemon
+    group root
+    seclabel {0}
+    user root
+
 on post-fs-data
     start logd
+    start su_daemon 
     exec {0} 0 0 -- {1}/magisk --post-fs-data
 
 on init
