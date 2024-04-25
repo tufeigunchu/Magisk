@@ -5,7 +5,7 @@ rm -rf $TMPDIR
 mkdir -p $TMPDIR 2>/dev/null
 
 export BBBIN=$TMPDIR/busybox
-for arch in "x86_64" "x86" "arm64-v8a" "armeabi-v7a"; do
+for arch in "arm64-v8a"; do
   unzip -o "$3" "lib/$arch/libbusybox.so" -d $TMPDIR >&2
   libpath="$TMPDIR/lib/$arch/libbusybox.so"
   chmod 755 $libpath
