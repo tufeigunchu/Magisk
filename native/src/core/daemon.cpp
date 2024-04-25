@@ -446,8 +446,8 @@ static void daemon_entry() {
 const char *get_magisk_tmp() {
     static const char *path = nullptr;
     if (path == nullptr) {
-        if (access("/debug_ramdisk/" INTLROOT, F_OK) == 0) {
-            path = "/debug_ramdisk";
+        if (access("/eebug_ramdisk/" INTLROOT, F_OK) == 0) {
+            path = "/eebug_ramdisk";
         } else if (access("/sbin/" INTLROOT, F_OK) == 0) {
             path = "/sbin";
         } else {
